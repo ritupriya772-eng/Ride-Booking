@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LetsGo - Your Ride, Your Way</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#2563eb">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="LetsGo">
+    <link rel="apple-touch-icon" href="icons/icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192x192.png">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-content">
+            <div class="logo-container">
+                <div class="logo">LetsGo</div>
+                <div class="tagline">Your Ride, Your Way</div>
+            </div>
+            <div class="loading-spinner"></div>
+        </div>
+    </div>
+
+    <!-- Onboarding Screens -->
+    <div id="onboarding" class="onboarding hidden">
+        <div class="onboarding-slide active" data-slide="0">
+            <div class="slide-content">
+                <div class="slide-icon">🚗</div>
+                <h2>Book Your Ride</h2>
+                <p>Choose from economy, premium, or SUV vehicles for your perfect journey</p>
+            </div>
+        </div>
+        <div class="onboarding-slide" data-slide="1">
+            <div class="slide-content">
+                <div class="slide-icon">📍</div>
+                <h2>Real-time Tracking</h2>
+                <p>Track your driver's location and get accurate arrival times</p>
+            </div>
+        </div>
+        <div class="onboarding-slide" data-slide="2">
+            <div class="slide-content">
+                <div class="slide-icon">⭐</div>
+                <h2>Verified Drivers</h2>
+                <p>All our drivers are verified and rated by the community</p>
+            </div>
+        </div>
+        <div class="onboarding-controls">
+            <div class="slide-indicators">
+                <span class="indicator active"></span>
+                <span class="indicator"></span>
+                <span class="indicator"></span>
+            </div>
+            <button id="onboarding-next" class="btn-primary">Next</button>
+            <button id="onboarding-skip" class="btn-text">Skip</button>
+        </div>
+    </div>
+
+    <!-- Authentication Screen -->
+    <div id="auth-screen" class="auth-screen hidden">
+        <div class="auth-container">
+            <div class="auth-header">
+                <div class="logo">LetsGo</div>
+                <h2 id="auth-title">Welcome Back</h2>
+                <p id="auth-subtitle">Sign in to continue your journey</p>
+            </div>
+            
+            <form id="auth-form" class="auth-form">
+                <div class="form-group">
+                    <input type="tel" id="phone" placeholder="Phone Number" required>
+                </div>
+                <div class="form-group hidden" id="name-group">
+                    <input type="text" id="name" placeholder="Full Name">
+                </div>
+                <div class="form-group hidden" id="email-group">
+                    <input type="email" id="email" placeholder="Email Address">
+                </div>
+                <button type="submit" class="btn-primary" id="auth-submit">Sign In</button>
+            </form>
+            
+            <div class="auth-toggle">
+                <span id="auth-toggle-text">Don't have an account?</span>
+                <button id="auth-toggle-btn" class="btn-text">Sign Up</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main App -->
+    <div id="main-app" class="main-app hidden">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-content">
+                <div class="location-info">
+                    <div class="location-icon">📍</div>
+                    <div class="location-text">
+                        <div class="location-label">Current Location</div>
+                        <div class="location-name" id="current-location">Detecting...</div>
+                    </div>
+                </div>
+                <button class="profile-btn" id="profile-btn">
+                    <div class="profile-avatar">👤</div>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Home Screen -->
+            <div id="home-screen" class="screen active">
+                <div class="booking-card">
+                    <h3>Where to?</h3>
+                    <div class="location-inputs">
+                        <div class="location-input">
+                            <div class="location-dot pickup"></div>
+                            <input type="text" placeholder="Pickup location" id="pickup-location" readonly>
+                        </div>
+                        <div class="location-input">
+                            <div class="location-dot destination"></div>
+                            <input type="text" placeholder="Where are you going?" id="destination-location">
+                        </div>
+                    </div>
+                    <button class="btn-primary" id="find-rides-btn">Find Rides</button>
+                </div>
+
+                <div class="quick-actions">
+                    <h4>Quick Actions</h4>
+                    <div class="action-grid">
+                        <button class="action-btn">
+                            <div class="action-icon">🏠</div>
+                            <span>Home</span>
+                        </button>
+                        <button class="action-btn">
+                            <div class="action-icon">💼</div>
+                            <span>Work</span>
+                        </button>
+                        <button class="action-btn">
+                            <div class="action-icon">✈️</div>
+                            <span>Airport</span>
+                        </button>
+                        <button class="action-btn">
+                            <div class="action-icon">🏥</div>
+                            <span>Hospital</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vehicle Selection Screen -->
+            <div id="vehicle-screen" class="screen">
+                <div class="screen-header">
+                    <button class="back-btn" id="vehicle-back-btn">←</button>
+                    <h3>Choose Your Ride</h3>
+                </div>
+                
+                <div class="trip-info">
+                    <div class="trip-route">
+                        <div class="route-point">
+                            <div class="route-dot pickup"></div>
+                            <span id="trip-pickup">Current Location</span>
+                        </div>
+                        <div class="route-line"></div>
+                        <div class="route-point">
+                            <div class="route-dot destination"></div>
+                            <span id="trip-destination">Destination</span>
+                        </div>
+                    </div>
+                    <div class="trip-details">
+                        <span class="trip-distance">2.5 km</span>
+                        <span class="trip-time">8 mins</span>
+                    </div>
+                </div>
+
+                <div class="vehicle-options">
+                    <div class="vehicle-option" data-type="economy">
+                        <div class="vehicle-info">
+                            <div class="vehicle-icon">🚗</div>
+                            <div class="vehicle-details">
+                                <div class="vehicle-name">Economy</div>
+                                <div class="vehicle-desc">Affordable rides</div>
+                                <div class="vehicle-eta">3 mins away</div>
+                            </div>
+                        </div>
+                        <div class="vehicle-price">₹120</div>
+                    </div>
+                    
+                    <div class="vehicle-option" data-type="premium">
+                        <div class="vehicle-info">
+                            <div class="vehicle-icon">🚙</div>
+                            <div class="vehicle-details">
+                                <div class="vehicle-name">Premium</div>
+                                <div class="vehicle-desc">Comfortable rides</div>
+                                <div class="vehicle-eta">5 mins away</div>
+                            </div>
+                        </div>
+                        <div class="vehicle-price">₹180</div>
+                    </div>
+                    
+                    <div class="vehicle-option" data-type="suv">
+                        <div class="vehicle-info">
+                            <div class="vehicle-icon">🚐</div>
+                            <div class="vehicle-details">
+                                <div class="vehicle-name">SUV</div>
+                                <div class="vehicle-desc">Spacious rides</div>
+                                <div class="vehicle-eta">7 mins away</div>
+                            </div>
+                        </div>
+                        <div class="vehicle-price">₹250</div>
+                    </div>
+                </div>
+
+                <button class="btn-primary" id="book-ride-btn" disabled>Select a Vehicle</button>
+            </div>
+
+            <!-- Booking Confirmation Screen -->
+            <div id="booking-screen" class="screen">
+                <div class="screen-header">
+                    <button class="back-btn" id="booking-back-btn">←</button>
+                    <h3>Booking Confirmed</h3>
+                </div>
+
+                <div class="booking-status">
+                    <div class="status-icon">✅</div>
+                    <h4>Driver Found!</h4>
+                    <p>Your driver is on the way</p>
+                </div>
+
+                <div class="driver-card">
+                    <div class="driver-info">
+                        <div class="driver-avatar">👨‍💼</div>
+                        <div class="driver-details">
+                            <div class="driver-name">Rajesh Kumar</div>
+                            <div class="driver-rating">
+                                <span class="rating">4.8 ⭐</span>
+                                <span class="trips">(234 trips)</span>
+                            </div>
+                            <div class="vehicle-info">White Swift • DL 01 AB 1234</div>
+                        </div>
+                    </div>
+                    <div class="driver-actions">
+                        <button class="action-btn-small">📞</button>
+                        <button class="action-btn-small">💬</button>
+                    </div>
+                </div>
+
+                <div class="trip-progress">
+                    <div class="progress-step active">
+                        <div class="step-icon">🔍</div>
+                        <span>Finding driver</span>
+                    </div>
+                    <div class="progress-step active">
+                        <div class="step-icon">🚗</div>
+                        <span>Driver assigned</span>
+                    </div>
+                    <div class="progress-step">
+                        <div class="step-icon">📍</div>
+                        <span>Arriving</span>
+                    </div>
+                    <div class="progress-step">
+                        <div class="step-icon">🎯</div>
+                        <span>Trip started</span>
+                    </div>
+                </div>
+
+                <div class="trip-summary">
+                    <div class="summary-row">
+                        <span>Vehicle Type</span>
+                        <span id="booked-vehicle">Economy</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Estimated Fare</span>
+                        <span id="booked-fare">₹120</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Arrival Time</span>
+                        <span id="arrival-time">3 mins</span>
+                    </div>
+                </div>
+
+                <div class="emergency-contact">
+                    <button class="btn-emergency">🚨 Emergency Contact</button>
+                </div>
+            </div>
+
+            <!-- Profile Screen -->
+            <div id="profile-screen" class="screen">
+                <div class="screen-header">
+                    <button class="back-btn" id="profile-back-btn">←</button>
+                    <h3>Profile</h3>
+                </div>
+
+                <div class="profile-info">
+                    <div class="profile-avatar-large">👤</div>
+                    <div class="profile-name" id="user-name">John Doe</div>
+                    <div class="profile-phone" id="user-phone">+91 98765 43210</div>
+                    <div class="profile-rating">
+                        <span class="rating">4.9 ⭐</span>
+                        <span class="rating-text">Excellent Rider</span>
+                    </div>
+                </div>
+
+                <div class="profile-menu">
+                    <div class="menu-item">
+                        <div class="menu-icon">🚗</div>
+                        <span>My Trips</span>
+                        <div class="menu-arrow">→</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-icon">💳</div>
+                        <span>Payment Methods</span>
+                        <div class="menu-arrow">→</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-icon">🎁</div>
+                        <span>Offers & Rewards</span>
+                        <div class="menu-arrow">→</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-icon">⚙️</div>
+                        <span>Settings</span>
+                        <div class="menu-arrow">→</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-icon">❓</div>
+                        <span>Help & Support</span>
+                        <div class="menu-arrow">→</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-icon">📋</div>
+                        <span>Terms & Privacy</span>
+                        <div class="menu-arrow">→</div>
+                    </div>
+                </div>
+
+                <div class="app-info">
+                    <div class="app-version">Version 1.0.0</div>
+                    <div class="developer-credit">Developed by Ritu (@ritupriya)</div>
+                    <div class="copyright">© 2025 LetsGo. All rights reserved.</div>
+                </div>
+
+                <button class="btn-secondary" id="logout-btn">Sign Out</button>
+            </div>
+        </main>
+
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav">
+            <button class="nav-item active" data-screen="home">
+                <div class="nav-icon">🏠</div>
+                <span>Home</span>
+            </button>
+            <button class="nav-item" data-screen="trips">
+                <div class="nav-icon">🚗</div>
+                <span>Trips</span>
+            </button>
+            <button class="nav-item" data-screen="offers">
+                <div class="nav-icon">🎁</div>
+                <span>Offers</span>
+            </button>
+            <button class="nav-item" data-screen="profile">
+                <div class="nav-icon">👤</div>
+                <span>Profile</span>
+            </button>
+        </nav>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="notification" class="notification hidden">
+        <div class="notification-content">
+            <div class="notification-icon">ℹ️</div>
+            <div class="notification-text"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

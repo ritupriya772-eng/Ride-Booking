@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LetsGo - About</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .about-page {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 24px;
+            line-height: 1.6;
+        }
+        
+        .about-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .about-header h1 {
+            font-size: 36px;
+            font-weight: 800;
+            color: #2563eb;
+            margin-bottom: 16px;
+        }
+        
+        .about-header p {
+            font-size: 18px;
+            color: #64748b;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+            margin: 40px 0;
+        }
+        
+        .feature-card {
+            background: white;
+            padding: 24px;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+        }
+        
+        .feature-icon {
+            font-size: 32px;
+            margin-bottom: 16px;
+        }
+        
+        .feature-card h3 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #1e293b;
+        }
+        
+        .feature-card p {
+            color: #64748b;
+        }
+        
+        .back-to-app {
+            text-align: center;
+            margin-top: 40px;
+        }
+        
+        .back-to-app a {
+            display: inline-block;
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: white;
+            text-decoration: none;
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .back-to-app a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <div class="about-page">
+        <div class="about-header">
+            <h1>LetsGo</h1>
+            <p>Your Ride, Your Way</p>
+        </div>
+        
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🚗</div>
+                <h3>Multiple Vehicle Options</h3>
+                <p>Choose from Economy, Premium, and SUV vehicles based on your needs and budget.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">📱</div>
+                <h3>Mobile-First Design</h3>
+                <p>Optimized for mobile devices with smooth animations and intuitive navigation.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">⭐</div>
+                <h3>Verified Drivers</h3>
+                <p>All drivers are verified and rated by the community for your safety and peace of mind.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">📍</div>
+                <h3>Real-time Tracking</h3>
+                <p>Track your driver's location and get accurate arrival times with live updates.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">💳</div>
+                <h3>Secure Payments</h3>
+                <p>Multiple payment options with secure transactions and transparent pricing.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🌐</div>
+                <h3>Offline Support</h3>
+                <p>Progressive Web App with offline functionality for basic features when you're not connected.</p>
+            </div>
+        </div>
+        
+        <div class="back-to-app">
+            <a href="/">Launch LetsGo App</a>
+        </div>
+        
+        <div style="text-align: center; margin-top: 40px; padding-top: 40px; border-top: 1px solid #e2e8f0;">
+            <p style="color: #64748b; margin-bottom: 8px;">Developed by Ritu (@ritupriya)</p>
+            <p style="color: #94a3b8; font-size: 14px;">© 2025 LetsGo. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>
